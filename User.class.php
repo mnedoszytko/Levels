@@ -7,11 +7,20 @@ class User {
 	private $db_username='level';
 	private $db_password='level';
 	private $db_name='levelowanie';
+	
+	public $levels; //tutaj bedzie tabelka z roznymi poziomamy
+	
 	public function __construct(){
 	
 		//lacze sie z baza danych
 		$myconn = @mysql_connect($this->db_host,$this->db_username,$this->db_password);
 		$seldb = @mysql_select_db($this->db_name,$myconn);
+		
+		
+		include('config.php');
+		
+		$this->levels = $levels; //przekaz do wlasciwosci $this->levels, aby byla widoczna w kazdym elemencie tego obiektu
+		
 		
 		
 	}
@@ -49,24 +58,33 @@ class User {
 	public function add_xp($id = null, $xp = null){
 		
 		$query = "SELECT xp FROM users WHERE user.id=$id";
-		$result = mysql_query($query);
 		
+		
+		$result = mysql_query($query);
+		$data = mysql_fetch_row($result);
+		$current_xp = $data[1];
 
 		
-		$new_xp = $result + $_POST['xp'];
-		
-		//nedo: dlaczego dodajesz liczbę $_POST['xp'] do $result, ktore jest wynikiem mysql_result
-		//jesli chcesz uzyskac wartosc kolumny xp dla rzedu wyciagnietego $query, musisz uzyc innej logiki - sprawdz funkcje mysql_fetch_row, albo podobną...
-		//w PHP wszystkie zmienne mają swoje typy: int, float, bool, string itd.., bardziej zaawansowane to np result, ktory wlasnie jest wynikiem funkcji mysql_query. sprobuj zrobic var_dump($result) i var_dump($POST) i zobaczysz ze nie da sie dodac całki z buraka do łokcia
-		
+		$new_xp = $current_xp + $_POST['xp'];
+	
 		
 		
 		$query = "UPDATE users SET xp='$new_xp' WHERE user.id=$id";
+		if (mysql_query($query)) {
+			
+			//zaktualizowano wartosc xp, teraz sprawdz czy nie doszlo do zmiany levelu
+			
+			$old_lvl = $this->whichLvl($current_xp);
+			$new_lvl = $this->whichLvl($new_xp);
+			if ($old_lvl != $new_lvl) $this->lvlUP($id);
+			
+			
+		}
 		
 		
-		//nedo: ok, ale trzeba wywołać $query mysql_query($query)
 		
-		// tutaj na razie chciałem by funkcja dodawała poprawnie xp, bez ingerencji w level
+		
+
 		
 			
 	}
@@ -77,11 +95,15 @@ class User {
 		//nedo: zeby to zrozumiec, musisz zobaczyc jak wyglada struktura $levels. poki co w tej funkcji $levels jest puste, bo niby skad ma sie wziac
 		//musisz je w jakis sposob zainicjowac z configa
 		
+		//$this->levels jest zaczytane w konstrukturze
 		
-		foreach($levels as $no=>$lvl){
-			if ($xp >= $lvl['treshold']){
+		
+		foreach($this->levels as $no=>$lvl){
+			if ($xp >= $lvl['threshold']){
+				//wal sobie takie
+				//echo "Sprawdzam poziom $lvl, prog to $lvl[treshold]";
 				return $no;
-			} // tego do końca nie rozumiem, zasugerowałem się wczorajszymi podpowiedziami
+			} 
 		}
 		
 	}
@@ -96,29 +118,30 @@ class User {
 		return false;
 	}
 	}
-	public function levelUP(){
-		$curentlevel = array_search($current_id, $levels);
-		$nextlevel = $currentLevel + 1;
-		$query = "UPDATE users SET lvl='lvl+1', lvl_name='$nextlevel' WHERE user.id=$id";
-		//chcialem zrobic tak, by funkcja zczytywala aktualne id w arrayu z config.php
-		//dodawała 1 i otrzymywała nowy kolejna pozycje w arrayu
-		//potem updateowala lvl name i dodawała 1 do levelu
-		
-		/* nedo: 
-		
-			hmm, ale to przeciez jest tak, ze ma dodac level dla aktualnego usera, wiec jako parametr funkcji musisz dac user_id.
-			po drugie, powinienes wyciagnac aktualny level z bazy, nastepnie dodac do tej wartosci jeden, nastepnie wykonac update query...
+	public function levelUP($user_id = null){
+	
+		if (!empty($user_id)) {
+			
+			//pobierz aktualny level
+			
+			$query = "SELECT lvl FROM users where user.id=$user_id";
+			$data = mysql_fetch_row($query);
+			$current_lvl = $data[1];
+			
+			$next_lvl = $current_lvl+1;
+			$next_lvl_name = $this->levels[$next_lvl]['name'];
+			
+			return mysql_query("UPDATE users set lvl=$next_lvl, lvl_name='$next_lvl_name'";
 			
 			
 			
-		*/
-		
-		//1. wyciagnij aktualny level dla user id $id
-		//2. dodaj do niego 1
-		//3. wykonaj update dla user id $id z nowym levelem
-		
-		
-		
+			
+			
+			
+		} else {
+			die("Nie podano user_id do levelUp");
+			return false;
+		}
 		
 		
 			}
