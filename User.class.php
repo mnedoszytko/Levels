@@ -3,15 +3,15 @@
 served at githhub.com  (nedo)
 */
 class User {
-	private db_host='localhost';
-	private db_username='level';
-	private db_password='level';
-	private db_name='levelowanie';
+	private $db_host='localhost';
+	private $db_username='level';
+	private $db_password='level';
+	private $db_name='levelowanie';
 	public function __construct(){
 	
 		//lacze sie z baza danych
 		$myconn = @mysql_connect($this->db_host,$this->db_username,$this->db_password);
-		$seldb = @mysql_select_db($this->db_name;$myconn);
+		$seldb = @mysql_select_db($this->db_name,$myconn);
 		
 		
 	}
@@ -54,9 +54,9 @@ class User {
 		$query = "UPDATE users SET xp='$new_xp' WHERE user.id=$id";
 		
 			
-		}
-		
 	}
+		
+	
 	public function whichLevel($xp){
 		foreach($levels as $no=>$lvl){
 			if ($xp >= $lvl['treshold']){
@@ -74,6 +74,7 @@ class User {
 		
 	} else {
 		return false;
+	}
 	}
 	public function levelUP(){
 		$curentlevel = array_search($current_id, $levels);

@@ -1,9 +1,9 @@
 <?
 error_reporting(E_ALL);
 ini_set('error_reporting','On');
-$link = mysql_connect('localhost', 'level', 'level');
-mysql_select_db("levelowanie",$link);
-mysql_query("SET NAMES utf8");
+
+include('User.class.php');
+$User = new User();
 ?>
 <html>
 	<head>
@@ -11,9 +11,8 @@ mysql_query("SET NAMES utf8");
 	</head>
 	<body>
 <?	
-$query = "SELECT * FROM users ORDER BY id";
-$result = mysql_query($query);
-if (mysql_num_rows($result) > 0) {	?>
+$users = $User->getUsers();
+if (count($users) > 0) {	?>
 <table border=1>
 <tr>
 	<th>Id</th>
@@ -24,16 +23,16 @@ if (mysql_num_rows($result) > 0) {	?>
 	<th></th>
 	</tr>
 <?
-while($array = mysql_fetch_assoc($result)) { ?>
+foreach($users as $user) { ?>
 <tr>
-	<td><?=$array['id']?></td>
-	<td><?=$array['name']?>
-	<td><?=$array['xp']?>
-	<td><?=$array['lvl']?>
-	<td><?=$array['lvl_name']?>
+	<td><?=$user['id']?></td>
+	<td><?=$user['name']?>
+	<td><?=$user['xp']?>
+	<td><?=$user['lvl']?>
+	<td><?=$user['lvl_name']?>
 	<td>
-	<a href="delete_dude.php?id=<?=$array['id']?>">usuń</a>
-	<a href="records.php?id=<?=$array['id']?>">dodaj xp</a>
+	<a href="delete_dude.php?id=<?=$user['id']?>">usuń</a>
+	<a href="records.php?id=<?=$user['id']?>">dodaj xp</a>
 	</td>
 </tr>
 <?
