@@ -1,0 +1,28 @@
+<?
+//i to powinno byc w index.php
+//include('user.class.php');
+$User = new User();
+
+$users = $User->getUsers();
+
+
+if (!empty($users)) {
+	?>
+
+	<table>
+	
+		<? foreach ($users as $user) { ?>
+		
+		<tr>
+			<td>....</td>
+			<td>....</td>
+		</tr>	
+		<? } ?>
+			
+			
+			
+	</table>
+	<? 
+	
+}
+?>
