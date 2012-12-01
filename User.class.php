@@ -52,7 +52,7 @@ class User {
 		$result = mysql_query($query);
 		$new_xp = $result + $_POST['xp'];
 		$query = "UPDATE users SET xp='$new_xp' WHERE user.id=$id";
-		
+		// tutaj na razie chciałem by funkcja dodawała poprawnie xp, bez ingerencji w level
 			
 	}
 		
@@ -61,7 +61,7 @@ class User {
 		foreach($levels as $no=>$lvl){
 			if ($xp >= $lvl['treshold']){
 				return $no;
-			}
+			} // tego do końca nie rozumiem, zasugerowałem się wczorajszymi podpowiedziami
 		}
 		
 	}
@@ -79,7 +79,10 @@ class User {
 	public function levelUP(){
 		$curentlevel = array_search($current_id, $levels);
 		$nextlevel = $currentLevel + 1;
-		$query = "UPDATE users SET lvl_name='$nextlevel' WHERE user.id=$id";
+		$query = "UPDATE users SET lvl='lvl+1', lvl_name='$nextlevel' WHERE user.id=$id";
+		//chcialem zrobic tak, by funkcja zczytywala aktualne id w arrayu z config.php
+		//dodawała 1 i otrzymywała nowy kolejna pozycje w arrayu
+		//potem updateowala lvl name i dodawała 1 do levelu
 	}
 	
 	
