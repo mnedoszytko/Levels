@@ -63,7 +63,7 @@ class User {
 		$result = mysql_query($query);
 		$data = mysql_fetch_row($result);
 		$current_xp = $data[1];
-
+		var_dump($data);
 		
 		$new_xp = $current_xp + $_POST['xp'];
 	
@@ -131,7 +131,7 @@ class User {
 			$next_lvl = $current_lvl+1;
 			$next_lvl_name = $this->levels[$next_lvl]['name'];
 			
-			return mysql_query("UPDATE users set lvl=$next_lvl, lvl_name='$next_lvl_name'";
+			return mysql_query("UPDATE users SET lvl='$next_lvl', lvl_name='$next_lvl_name' WHERE id='$user_id'";
 			
 			
 			
