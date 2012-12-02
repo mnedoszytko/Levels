@@ -1,9 +1,8 @@
 <?
 error_reporting(E_ALL);
 ini_set('error_reporting','On');
-$link = mysql_connect('localhost', 'level', 'level');
-mysql_select_db("levelowanie",$link);
-mysql_query("SET NAMES utf8");
+include('User.class.php');
+$User = new User();
 ?>
 <html>
 	<head>
@@ -12,20 +11,9 @@ mysql_query("SET NAMES utf8");
 	</head>
 	<body>	
 	<?
-$q = "DELETE FROM users WHERE id=".$_GET['id'];
-
-if(mysql_query($q)) {
+	$users = $User->delete_user($id=$_GET['id']);
+	echo "Usunięto zioma";
 	?>
-	Usunięto levelowca <a href="index.php">Powrót</a>
-	<?
-} else {
-	?>
-	Coś się zjebało	
-	<? echo mysql_error(); ?>
-<a href="index.php">Powrót</a>
-	
-<?
-}
-	?>
+	<a href="index.php">Powrót</a>
 	</body>
 </html>

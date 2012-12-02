@@ -49,7 +49,7 @@ class User {
 	}
 	public function delete_user($id = null){
 		
-		$query = "DELETE FROM users WHERE user.id=$id";
+		$query = "DELETE FROM users WHERE users.id=$id";
 		
 		//zwroc to co zwraca mysql_query czyli czy sie udalo czy nie
 		return mysql_query($query);
@@ -57,19 +57,16 @@ class User {
 	}
 	public function add_xp($id = null, $xp = null){
 		
-		$query = "SELECT xp FROM users WHERE user.id=$id";
+		$query = "SELECT xp FROM users WHERE users.id=$id";
 		
 		
 		$result = mysql_query($query);
 		$data = mysql_fetch_row($result);
 		$current_xp = $data[1];
-		var_dump($data);
 		
 		$new_xp = $current_xp + $_POST['xp'];
 	
-		
-		
-		$query = "UPDATE users SET xp='$new_xp' WHERE user.id=$id";
+		$query = "UPDATE users SET xp='$new_xp' WHERE users.id=$id";
 		if (mysql_query($query)) {
 			
 			//zaktualizowano wartosc xp, teraz sprawdz czy nie doszlo do zmiany levelu
@@ -111,7 +108,7 @@ class User {
 	
 	if (!empty($id) && !empty($name)){
 		
-		$query = "UPDATE users SET name='$name' WHERE user.id=$id";
+		$query = "UPDATE users SET name='$name' WHERE users.id=$id";
 		return mysql_query($query);
 		
 	} else {
@@ -124,14 +121,15 @@ class User {
 			
 			//pobierz aktualny level
 			
-			$query = "SELECT lvl FROM users where user.id=$user_id";
+			$query = "SELECT lvl FROM users where users.id=$user_id";
 			$data = mysql_fetch_row($query);
 			$current_lvl = $data[1];
 			
 			$next_lvl = $current_lvl+1;
 			$next_lvl_name = $this->levels[$next_lvl]['name'];
 			
-			return mysql_query("UPDATE users SET lvl='$next_lvl', lvl_name='$next_lvl_name' WHERE id='$user_id'";
+			$query = "UPDATE users SET lvl=$next_lvl, lvl_name=$next_lvl_name WHERE id=$user_id";
+			return mysql_query($query);
 			
 			
 			
