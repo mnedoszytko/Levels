@@ -28,7 +28,7 @@ class User {
 	
 		if (!empty($data) && !empty($data['name'])) {
 			
-				$query = "INSERT INTO users (name,xp,lvl,lvl_name) VALUES('$username',0,'noob')";
+				$query = "INSERT INTO users (name,xp,lvl,lvl_name) VALUES('$username',0,0,'noone')";
 				if (mysql_query($query)) {
 					return mysql_insert_id();
 					

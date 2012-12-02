@@ -33,6 +33,7 @@ foreach($users as $user) { ?>
 	<td>
 	<a href="delete_dude.php?id=<?=$user['id']?>">usuń</a>
 	<a href="records.php?id=<?=$user['id']?>">dodaj xp</a>
+	<a href="edit_dude.php?id=<?=$user['id']?>">zmień nick</a>
 		</td>
 </tr>
 <?
