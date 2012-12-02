@@ -11,7 +11,9 @@ $User = new User();
 	</head>
 	<body>
 	<? if (isset($_POST['submit']))  {
-	$users = $User->add_user($username = $_POST['name']);
+//	$users = $User->add_user($username = $_POST['name']);
+//jesli nie uzywasz nigdzie indziej zmiennej $username to jest niepotrzebne, to co przekazesz do nawiasu, staje się zmienną zdefiniowaną w funkcji
+$users = $User->add_user($_POST['name']);
 	echo "Dodano levelowca";
 	// Wyświetla się wszystko ładnie pięknie, wszystkie strony tak jak powinno, tyle że nie dodaje zioma
 ?>

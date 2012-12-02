@@ -25,8 +25,13 @@ class User {
 		
 	}
 	public function add_user($username){
-	
+		//przekazales zmienna $username....
+		
+		
+		//potem pytasz czy pusta jest zmienna $data i czy jej index ['name'] tez nie jest pusty...
 		if (!empty($data) && !empty($data['name'])) {
+		
+		echo "Podano niezbędne parametry, dodaję zioma";
 			
 				$query = "INSERT INTO users (name,xp,lvl,lvl_name) VALUES('$username',0,0,'noone')";
 				if (mysql_query($query)) {
@@ -42,7 +47,7 @@ class User {
 			return true;
 		
 		} else {
-			
+			die("Nie podano parametrów do funkcji add_xp, takich jak potrzebuję");
 			return false;
 		}
 		
