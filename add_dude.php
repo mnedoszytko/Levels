@@ -13,8 +13,12 @@ $User = new User();
 	<? if (isset($_POST['submit']))  {
 //	$users = $User->add_user($username = $_POST['name']);
 //jesli nie uzywasz nigdzie indziej zmiennej $username to jest niepotrzebne, to co przekazesz do nawiasu, staje się zmienną zdefiniowaną w funkcji
-	$users = $User->add_user($_POST['name']);
+	if ($new_user_id = $User->add_user($_POST['name'])) {
 	echo "Dodano levelowca, o id '$users";
+	} else {
+		echo "Nie udało się dodać levelowca";//to jesli funkcja zwroci false czyli linia 41 lub 50 z users.class
+		
+	}
 ?>
 <br>
 <a href="index.php">Powrót do listy levelowców</a>		
