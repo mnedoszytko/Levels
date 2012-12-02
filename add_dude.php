@@ -13,9 +13,8 @@ $User = new User();
 	<? if (isset($_POST['submit']))  {
 //	$users = $User->add_user($username = $_POST['name']);
 //jesli nie uzywasz nigdzie indziej zmiennej $username to jest niepotrzebne, to co przekazesz do nawiasu, staje się zmienną zdefiniowaną w funkcji
-$users = $User->add_user($_POST['name']);
-	$idno = mysql_insert_id();
-	echo "Dodano levelowca, o id '$idno'";
+	$users = $User->add_user($_POST['name']);
+	echo "Dodano levelowca, o id '$users";
 ?>
 <br>
 <a href="index.php">Powrót do listy levelowców</a>		
