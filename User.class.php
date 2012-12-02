@@ -29,14 +29,13 @@ class User {
 		
 		
 		//potem pytasz czy pusta jest zmienna $data i czy jej index ['name'] tez nie jest pusty...
-		if (!empty($data) && !empty($data['name'])) {
+		if (!empty($username)) {
 		
 		echo "Podano niezbędne parametry, dodaję zioma";
 			
 				$query = "INSERT INTO users (name,xp,lvl,lvl_name) VALUES('$username',0,0,'noone')";
 				if (mysql_query($query)) {
-					return mysql_insert_id();
-					
+					return mysql_insert_id(); 
 				} else {
 					
 					return false;
