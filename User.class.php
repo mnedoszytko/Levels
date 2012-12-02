@@ -37,6 +37,7 @@ class User {
 				if (mysql_query($query)) {
 					return mysql_insert_id(); 
 				} else {
+					
 					return false;
 				}
 				
