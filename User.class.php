@@ -59,14 +59,13 @@ class User {
 		return mysql_query($query);
 		
 	}
-	public function add_xp($id = null, $xp = null){
+	public function add_xp($id = null, $xp){
 		
 		$query = "SELECT xp FROM users WHERE users.id=$id";
 		
-		
 		$result = mysql_query($query);
 		$data = mysql_fetch_row($result);
-		$current_xp = $data[1];
+		$current_xp = $data[0];
 		
 		$new_xp = $current_xp + $_POST['xp'];
 	
@@ -79,31 +78,15 @@ class User {
 			$new_lvl = $this->whichLvl($new_xp);
 			if ($old_lvl != $new_lvl) $this->lvlUP($id);
 			
-			
-		}
-		
-		
-		
-		
-
-		
-			
+		}			
 	}
 		
 	
-	public function whichLevel($xp){
-	
-		//nedo: zeby to zrozumiec, musisz zobaczyc jak wyglada struktura $levels. poki co w tej funkcji $levels jest puste, bo niby skad ma sie wziac
-		//musisz je w jakis sposob zainicjowac z configa
-		
-		//$this->levels jest zaczytane w konstrukturze
-		
-		
+	public function whichLvl($xp){		
 		foreach($this->levels as $no=>$lvl){
 			if ($xp >= $lvl['threshold']){
-				//wal sobie takie
-				//echo "Sprawdzam poziom $lvl, prog to $lvl[treshold]";
 				return $no;
+				//tu gdzieś jest błąd, tyle że nie wiem gdzie dokładnie.
 			} 
 		}
 		
@@ -119,13 +102,13 @@ class User {
 		return false;
 	}
 	}
-	public function levelUP($user_id = null){
+	public function levelUP($id = null){
 	
-		if (!empty($user_id)) {
+		if (!empty($id)) {
 			
 			//pobierz aktualny level
 			
-			$query = "SELECT lvl FROM users where users.id=$user_id";
+			$query = "SELECT lvl FROM users WHERE users.id=$id";
 			$data = mysql_fetch_row($query);
 			$current_lvl = $data[1];
 			

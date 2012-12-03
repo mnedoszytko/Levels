@@ -1,7 +1,6 @@
 <?
 error_reporting(E_ALL);
 ini_set('error_reporting','On');
-
 include('User.class.php');
 $User = new User();
 ?>
@@ -32,7 +31,7 @@ foreach($users as $user) { ?>
 	<td><?=$user['lvl_name']?>
 	<td>
 	<a href="delete_dude.php?id=<?=$user['id']?>">usuń</a>
-	<a href="records.php?id=<?=$user['id']?>">dodaj xp</a>
+	<a href="add_xp.php?id=<?=$user['id']?>">dodaj xp</a>
 	<a href="edit_dude.php?id=<?=$user['id']?>">zmień nick</a>
 		</td>
 </tr>
