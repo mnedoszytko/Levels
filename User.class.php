@@ -108,7 +108,7 @@ class User {
 		}
 		
 	}
-	public function edit($id = null, $name = null){
+	public function edit_user($id = null, $name = null){
 	
 	if (!empty($id) && !empty($name)){
 		
