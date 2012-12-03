@@ -60,11 +60,15 @@ class User {
 		
 	}
 	public function add_xp($id = null, $xp){
+	
+//	var_dump($id);
+//	var_dump($xp);
 		
 		$query = "SELECT xp FROM users WHERE users.id=$id";
 		
 		$result = mysql_query($query);
 		$data = mysql_fetch_row($result);
+		
 		$current_xp = $data[0];
 		
 		$new_xp = $current_xp + $_POST['xp'];
@@ -78,7 +82,15 @@ class User {
 			$new_lvl = $this->whichLvl($new_xp);
 			if ($old_lvl != $new_lvl) $this->lvlUP($id);
 			
-		}			
+			
+			//padawanie... funkcja musi cos zwrocic, zobacz co funkcja zwraca....nic nie zwraca.
+			
+			
+		}
+		
+		
+		
+					
 	}
 		
 	
