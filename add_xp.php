@@ -10,24 +10,15 @@ $User = new User();
 		<title></title>
 	</head>
 	<body>
-	
-
 	<?
-	/*
-	znowu robisz to samo przekazujac parametry (patrz adnotacje w edit_dude.php)
-	i ten sam error, mieszając $_POST i $_GET
-	*/
-	
 	
 	 if (isset($_POST['submit']))  {	
-			if ($new_user_xp = $User->add_xp($id = $_GET['id'], $xp = $_POST['xp'])) {
+			if ($new_user_xp = $User->add_xp($_GET['id'], $_POST['xp'])) {
 			echo "Dodano xp";
 	} else {
 	
 		
 		echo "Nie udało się dodać xp";
-		echo "\$new_user_xp = ";
-		var_dump($new_user_xp);
 	}
 ?>
 <br>
@@ -36,6 +27,7 @@ $User = new User();
 	Ile xp chcesz dodać?
 	<form action="" method="POST">
 		Xp: <input type="text" name="xp"><br>
+		<input type="hidden" name="id" value="<?=$_GET['id']?>">
 		<input type="submit" name="submit" value="Zmień">
 	</form>
 	<?  } ?>

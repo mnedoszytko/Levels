@@ -59,33 +59,32 @@ class User {
 		return mysql_query($query);
 		
 	}
-	public function add_xp($id = null, $xp){
-	
-//	var_dump($id);
-//	var_dump($xp);
-		
-		$query = "SELECT xp FROM users WHERE users.id=$id";
-		
+	public function add_xp($id, $xp){
+			
+		$query = "SELECT xp FROM users WHERE users.id=$id";		
 		$result = mysql_query($query);
 		$data = mysql_fetch_row($result);
 		
-		$current_xp = $data[0];
-		
+		$current_xp = $data[0];	
 		$new_xp = $current_xp + $_POST['xp'];
 	
 		$query = "UPDATE users SET xp='$new_xp' WHERE users.id=$id";
+		
 		if (mysql_query($query)) {
 			
-			//zaktualizowano wartosc xp, teraz sprawdz czy nie doszlo do zmiany levelu
 			
 			$old_lvl = $this->whichLvl($current_xp);
+			var_dump($old_lvl);
+			
+			
+			// tutaj jest problem, funkcja nie zczytuje levelu
+			
+			
 			$new_lvl = $this->whichLvl($new_xp);
+			var_dump($new_lvl);
 			if ($old_lvl != $new_lvl) $this->lvlUP($id);
-			
-			
-			//padawanie... funkcja musi cos zwrocic, zobacz co funkcja zwraca....nic nie zwraca.
-			
-			
+			return mysql_query($query);
+
 		}
 		
 		
