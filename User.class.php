@@ -28,7 +28,7 @@ class User {
 		//przekazales zmienna $username....
 		
 		
-		//potem pytasz czy pusta jest zmienna $data i czy jej index ['name'] tez nie jest pusty...
+
 		if (!empty($username)) {
 		
 		echo "Podano niezbędne parametry, dodaję zioma";
@@ -66,18 +66,21 @@ class User {
 		$data = mysql_fetch_row($result);
 		
 		$current_xp = $data[0];	
+		
+		//a co tu robi $_POST? klasa User ma swoje zmienne, przekazane przez parametry funkcji ($id, $xp)
 		$new_xp = $current_xp + $_POST['xp'];
 	
 		$query = "UPDATE users SET xp='$new_xp' WHERE users.id=$id";
 		
 		if (mysql_query($query)) {
-			
+			var_dump($current_xp);
 			
 			$old_lvl = $this->whichLvl($current_xp);
 			var_dump($old_lvl);
-			
+				
 			
 			// tutaj jest problem, funkcja nie zczytuje levelu
+			
 			
 			
 			$new_lvl = $this->whichLvl($new_xp);
@@ -94,12 +97,29 @@ class User {
 		
 	
 	public function whichLvl($xp){		
+	
+echo "Sprawdzam jaki level powinien byc przy xp $xp...\n";
 		foreach($this->levels as $no=>$lvl){
-			if ($xp >= $lvl['threshold']){
+		echo "Może level $no? ";
+			if ($xp >= $lvl['threshold']){  // jak spojrzysz na wynik dzialania, powinno Ci podwiedziec
+			
+			/*
+			
+			wyglada na to, ze znak przymiarki jest postawiony nie w ta strone...
+			
+			
+			*/
+				echo "Tak!";
 				return $no;
 				//tu gdzieś jest błąd, tyle że nie wiem gdzie dokładnie.
-			} 
+				
+				//no to trzeba debugować, dokłądniej tak jak wyzej
+			}  else {
+				
+				echo "nie";
+			}
 		}
+		die();
 		
 	}
 	public function edit_user($id = null, $name = null){
