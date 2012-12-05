@@ -1,4 +1,9 @@
 <?php
+$db_config = array(
+	'host' => 'localhost',
+	'username' => 'level',
+	'password' => 'level',
+	'database' => 'levelowanie');
 $levels = array(
 	0 => array(
 		'name' => 'noone',

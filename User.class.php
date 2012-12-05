@@ -3,20 +3,20 @@
 served at githhub.com  (nedo)
 */
 class User {
-	private $db_host='localhost';
-	private $db_username='level';
-	private $db_password='level';
-	private $db_name='levelowanie';
 	private $table_name='xp_users';
 	public $levels; 
-	
+	public $db_config;
 	public function __construct(){
 	
-		$myconn = @mysql_connect($this->db_host,$this->db_username,$this->db_password);
-		$seldb = @mysql_select_db($this->db_name,$myconn);
-		
-		
 		include('config.php');
+		
+		$this->db_config = $db_config;
+		
+		$myconn = @mysql_connect($this->db_config['host'],$this->db_config['username'],$this->db_config['password']);
+		$seldb = @mysql_select_db($this->db_config['database'],$myconn);
+		
+		
+	
 		
 		$this->levels = $levels; 
 		
