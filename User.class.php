@@ -7,7 +7,7 @@ class User {
 	private $db_username='level';
 	private $db_password='level';
 	private $db_name='levelowanie';
-	
+	private $table_name='xp_users';
 	public $levels; 
 	
 	public function __construct(){
@@ -21,7 +21,6 @@ class User {
 		$this->levels = $levels; 
 		
 		
-		
 	}
 	public function add_user($username){
 		
@@ -31,7 +30,7 @@ class User {
 		
 		echo "Podano niezbędne parametry, dodaję zioma";
 			
-				$query = "INSERT INTO users (name,xp,lvl,lvl_name) VALUES('$username',0,0,'noone')";
+				$query = "INSERT INTO $this->table_name (name,xp,lvl,lvl_name) VALUES('$username',0,0,'noone')";
 				if (mysql_query($query)) {
 					return mysql_insert_id(); 
 				} else {
@@ -51,28 +50,27 @@ class User {
 	}
 	public function delete_user($id = null){
 		
-		$query = "DELETE FROM users WHERE users.id=$id";
-		
+		$query = "DELETE FROM $this->table_name WHERE $this->table_name.id=$id";
 		return mysql_query($query);
 		
 	}
 	public function add_xp($id, $xp){
 			
-		$query = "SELECT xp FROM users WHERE users.id=$id";		
+		$query = "SELECT xp FROM $this->table_name WHERE $this->table_name.id=$id";		
 		$result = mysql_query($query);
 		$data = mysql_fetch_row($result);
 		$current_xp = $data[0];	
 
 		$new_xp = $current_xp + $xp;
 	
-		$query = "UPDATE users SET xp='$new_xp' WHERE users.id=$id";
+		$query = "UPDATE $this->table_name SET xp='$new_xp' WHERE $this->table_name.id=$id";
 		
 		if (mysql_query($query)) {
 			$old_lvl = $this->whichLvl($current_xp);
 			$new_lvl = $this->whichLvl($new_xp);
 			if ($old_lvl != $new_lvl){ 
 				$new_lvl_name = $this->levels[$new_lvl]['name'];
-				$query = "UPDATE users SET lvl='$new_lvl', lvl_name='$new_lvl_name' WHERE users.id=$id";
+				$query = "UPDATE $this->table_name SET lvl='$new_lvl', lvl_name='$new_lvl_name' WHERE $this->table_name.id=$id";
 				echo "LevelUP! nowy level name to $new_lvl_name ";
 			}
 			return mysql_query($query);
@@ -99,7 +97,7 @@ class User {
 	
 	if (!empty($id) && !empty($name)){
 		
-		$query = "UPDATE users SET name='$name' WHERE users.id=$id";
+		$query = "UPDATE $this->table_name SET name='$name' WHERE $this->table_name.id=$id";
 		return mysql_query($query);
 		
 	} else {
@@ -110,7 +108,7 @@ class User {
 	public function getUsers($order = null, $limit = null) {
 		
 		
-		$q = "SELECT * FROM users";
+		$q = "SELECT * FROM $this->table_name";
 		if (!empty($order)) $q .= "ORDER BY $order";
 		if (!empty($limit)) $q .= "LIMIT $limit";
 		
