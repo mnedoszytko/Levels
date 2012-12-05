@@ -8,22 +8,30 @@ class User {
 	private $db_password='level';
 	private $db_name='levelowanie';
 	
-	public $levels; 
+	public $levels; //tutaj bedzie tabelka z roznymi poziomamy
 	
 	public function __construct(){
 	
+		//lacze sie z baza danych
 		$myconn = @mysql_connect($this->db_host,$this->db_username,$this->db_password);
 		$seldb = @mysql_select_db($this->db_name,$myconn);
 		
 		
 		include('config.php');
 		
-		$this->levels = $levels;
+		$this->levels = $levels; //przekaz do wlasciwosci $this->levels, aby byla widoczna w kazdym elemencie tego obiektu
+		
+		
 		
 	}
 	public function add_user($username){
+		//przekazales zmienna $username....
 		
+		
+
 		if (!empty($username)) {
+		
+		echo "Podano niezbędne parametry, dodaję zioma";
 			
 				$query = "INSERT INTO users (name,xp,lvl,lvl_name) VALUES('$username',0,0,'noone')";
 				if (mysql_query($query)) {
@@ -47,6 +55,7 @@ class User {
 		
 		$query = "DELETE FROM users WHERE users.id=$id";
 		
+		//zwroc to co zwraca mysql_query czyli czy sie udalo czy nie
 		return mysql_query($query);
 		
 	}
@@ -63,7 +72,11 @@ class User {
 		
 		if (mysql_query($query)) {
 			$old_lvl = $this->whichLvl($current_xp);
+			echo "podaję old level";
+			var_dump($old_lvl);
 			$new_lvl = $this->whichLvl($new_xp);
+			echo "podaję new level";
+			var_dump($new_lvl);
 			if ($old_lvl != $new_lvl){ 
 				$new_lvl_name = $this->levels[$new_lvl]['name'];
 				$query = "UPDATE users SET lvl='$new_lvl', lvl_name='$new_lvl_name' WHERE users.id=$id";
@@ -71,7 +84,10 @@ class User {
 			return mysql_query($query);
 
 		}
-							
+		
+		
+		
+					
 	}
 		
 	
@@ -79,13 +95,14 @@ class User {
 	
 echo "Sprawdzam jaki level powinien byc przy xp $xp...\n";
 		foreach ($this->levels as $no=>$lvl){
+		echo "Może level $no? ";
 			if ($xp <= $lvl['threshold']){  
-			
+							echo "Tak!";
 				return $no;
 				
 			}  else {
 				
-		echo "nie";
+				echo "nie";
 			}
 		}
 		die();
