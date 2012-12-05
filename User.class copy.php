@@ -1,7 +1,7 @@
 <?
 /*
 served at githhub.com  (nedo)
-BACKUP IN CASE OF FAILURE
+BACKUP IN CASE OF DISASTER
 */
 class User {
 	private $db_host='localhost';
