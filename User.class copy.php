@@ -1,6 +1,7 @@
 <?
 /*
 served at githhub.com  (nedo)
+BACKUP IN CASE OF FAILURE
 */
 class User {
 	private $db_host='localhost';
@@ -78,9 +79,7 @@ class User {
 			echo "podaję new level";
 			var_dump($new_lvl);
 			if ($old_lvl != $new_lvl){ 
-				$new_lvl_name = $this->levels[$new_lvl]['name'];
-				$query = "UPDATE users SET lvl='$new_lvl', lvl_name='$new_lvl_name' WHERE users.id=$id";
-			}
+				$this->levelUP($id); }
 			return mysql_query($query);
 
 		}
@@ -96,10 +95,19 @@ class User {
 echo "Sprawdzam jaki level powinien byc przy xp $xp...\n";
 		foreach ($this->levels as $no=>$lvl){
 		echo "Może level $no? ";
-			if ($xp <= $lvl['threshold']){  
-							echo "Tak!";
+			if ($xp <= $lvl['threshold']){  // jak spojrzysz na wynik dzialania, powinno Ci podwiedziec
+			
+			/*
+			
+			wyglada na to, ze znak przymiarki jest postawiony nie w ta strone...
+			
+			
+			*/
+				echo "Tak!";
 				return $no;
+				//tu gdzieś jest błąd, tyle że nie wiem gdzie dokładnie.
 				
+				//no to trzeba debugować, dokłądniej tak jak wyzej
 			}  else {
 				
 				echo "nie";
@@ -119,7 +127,36 @@ echo "Sprawdzam jaki level powinien byc przy xp $xp...\n";
 		return false;
 	}
 	}
+	public function levelUP($id){
+	
+		if (!empty($id)) {
+			$query = "SELECT lvl FROM users WHERE users.id=$id";
+			$result = mysql_query($query);
+			$data = mysql_fetch_row($result);
+			$current_lvl = $data[0];
+			var_dump($current_lvl);
+			$next_lvl = $current_lvl +1;
+			var_dump($next_lvl);
+			//$next_lvl_name = $this->levels[$next_lvl]['name'];
+			
+			
+			$query = "UPDATE users SET lvl='$next_lvl', WHERE users.id=$id";
+			return mysql_query($query);
+			
+			
+			
+			
+			
+			
+		} else {
+			die("Nie podano user_id do levelUp");
+			return false;
+		}
 		
+		
+			}
+	
+	
 	public function getUsers($order = null, $limit = null) {
 		
 		
