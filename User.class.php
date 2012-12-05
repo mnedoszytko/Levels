@@ -12,9 +12,18 @@ class User {
 		
 		$this->db_config = $db_config;
 		
-		$myconn = @mysql_connect($this->db_config['host'],$this->db_config['username'],$this->db_config['password']);
-		$seldb = @mysql_select_db($this->db_config['database'],$myconn);
+		$sn = $_SERVER['SERVER_NAME'];
 		
+		if ($sn = 'localhost'){
+			
+		
+		$myconn = @mysql_connect($this->db_config['devel']['host'],$this->db_config['devel']['username'],$this->db_config['devel']['password']);
+		$seldb = @mysql_select_db($this->db_config['devel']['database'],$myconn);
+		} else {
+		$myconn = @mysql_connect($this->db_config['prod']['host'],$this->db_config['prod']['username'],$this->db_config['prod']['password']);
+		$seldb = @mysql_select_db($this->db_config['prod']['database'],$myconn);
+
+		}
 		
 	
 		

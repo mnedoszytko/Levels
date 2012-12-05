@@ -1,9 +1,15 @@
 <?php
-$db_config = array(
-	'host' => 'localhost',
-	'username' => 'level',
-	'password' => 'level',
-	'database' => 'levelowanie');
+$db_config = array( 
+	'prod' => array(
+		'host' => 'localhost',
+		'username' => 'level',
+		'password' => 'level',
+		'database' => 'levelowanie'),
+	'devel' => array(
+		'host' => 'localhost',
+		'username' => 'level',
+		'password' => 'level',
+		'database' => 'levelowanie');
 $levels = array(
 	0 => array(
 		'name' => 'noone',
@@ -34,7 +40,7 @@ $levels = array(
 		'threshold' => 500
 	),
 	7 => array(
-		'name' => 'ziom 1',
+		'name' => 'oop apprentice',
 		'threshold' => 1000
 	),
 	8 => array(
