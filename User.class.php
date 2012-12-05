@@ -86,8 +86,9 @@ class User {
 	public function whichLvl($xp){		
 	
 		foreach ($this->levels as $no=>$lvl){
-			if ($xp <= $lvl['threshold']){  
-				return $no;	
+			if ($xp <= $lvl['threshold']){ 
+				$noco = $no -1; 
+				return $noco;	
 			} 
 		}
 		die();
