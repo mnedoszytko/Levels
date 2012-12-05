@@ -73,6 +73,7 @@ class User {
 			if ($old_lvl != $new_lvl){ 
 				$new_lvl_name = $this->levels[$new_lvl]['name'];
 				$query = "UPDATE users SET lvl='$new_lvl', lvl_name='$new_lvl_name' WHERE users.id=$id";
+				echo "LevelUP! nowy level name to $new_lvl_name ";
 			}
 			return mysql_query($query);
 
