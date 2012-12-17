@@ -44,12 +44,12 @@ $levels = array(
 		'threshold' => 1000
 	),
 	8 => array(
-		'name' => 'ziom 2',
-		'threshold' => 1500
+		'name' => 'xxxxxxx',
+		'threshold' => 1800
 	),
 	9 => array(
-		'name' => 'ziom 3',
-		'threshold' => 2000
+		'name' => 'xxxxxxx',
+		'threshold' => 3000
 	)
 );
 ?>
