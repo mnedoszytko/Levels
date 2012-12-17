@@ -2,13 +2,13 @@
 $db_config = array( 
 	'prod' => array(
 		'host' => 'localhost',
-		'username' => 'nedo',
-		'password' => 'sta61k',
-		'database' => 'nedo'),
-	'devel' => array(
-		'host' => 'localhost',
 		'username' => 'level',
 		'password' => 'level',
+		'database' => 'levelowanie'),
+	'devel' => array(
+		'host' => 'localhost',
+		'username' => 'root',
+		'password' => 'k3j2l4prmm',
 		'database' => 'levelowanie'));
 $levels = array(
 	0 => array(
@@ -44,12 +44,12 @@ $levels = array(
 		'threshold' => 1000
 	),
 	8 => array(
-		'name' => 'xxxxxxx',
-		'threshold' => 1800
+		'name' => 'ziom 2',
+		'threshold' => 1500
 	),
 	9 => array(
-		'name' => 'xxxxxxx',
-		'threshold' => 3000
+		'name' => 'ziom 3',
+		'threshold' => 2000
 	)
 );
 ?>

@@ -7,14 +7,14 @@ class User {
 	public $levels; 
 	public $db_config;
 	public function __construct(){
-	
+
 		include('config.php');
 		
 		$this->db_config = $db_config;
 		
 		$sn = $_SERVER['SERVER_NAME'];
-		
-		if ($sn == 'localhost'){
+
+		if ($sn = 'localhost'){
 			
 		
 		$myconn = @mysql_connect($this->db_config['devel']['host'],$this->db_config['devel']['username'],$this->db_config['devel']['password']);
@@ -90,37 +90,6 @@ class User {
 		
 					
 	}
-		
-	public function add_xp2($id, $xp){
-			
-		$query = "SELECT xp FROM $this->table_name WHERE $this->table_name.id=$id";		
-		$result = mysql_query($query);
-		$data = mysql_fetch_row($result);
-		$current_xp = $data[0];	
-
-		$new_xp = $current_xp + $xp;
-	
-		$query = "UPDATE $this->table_name SET xp='$new_xp' WHERE $this->table_name.id=$id";
-		
-		if (mysql_query($query)) {
-			$old_lvl = $this->whichLvl($current_xp);
-			$new_lvl = $this->whichLvl($new_xp);
-			if ($old_lvl != $new_lvl){ 
-				$new_lvl_name = $this->levels[$new_lvl]['name'];
-				$query = "UPDATE $this->table_name SET lvl='$new_lvl', lvl_name='$new_lvl_name' WHERE $this->table_name.id=$id";
-				echo "LevelUP! nowy level name to $new_lvl_name ";
-			}
-			return mysql_query($query);
-
-		}
-		
-		
-		
-					
-	}
-		
-
-	
 		
 	
 	public function whichLvl($xp){		
