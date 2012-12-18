@@ -1,4 +1,5 @@
 <?
+
 /*
 served at githhub.com  (nedo)
 */
@@ -10,22 +11,21 @@ class User {
 	
 		include('config.php');
 		
+		
 		$this->db_config = $db_config;
 		
 		$sn = $_SERVER['SERVER_NAME'];
-		
-		if ($sn == 'localhost'){
-			
-		
-		$myconn = @mysql_connect($this->db_config['devel']['host'],$this->db_config['devel']['username'],$this->db_config['devel']['password']);
+
+		if ($sn == 'xp'){
+				
+		$myconn = @mysql_connect($this->db_config['devel']['host'],$this->db_config['devel']['username'],$this->db_config['devel']['password']) or die("nie udało się podłączyć do serwera developerskiego");
 		$seldb = @mysql_select_db($this->db_config['devel']['database'],$myconn);
 		} else {
-		$myconn = @mysql_connect($this->db_config['prod']['host'],$this->db_config['prod']['username'],$this->db_config['prod']['password']);
+		$myconn = @mysql_connect($this->db_config['prod']['host'],$this->db_config['prod']['username'],$this->db_config['prod']['password']) or die("nie udało się podłączyć do serwera produkcyjnego");
 		$seldb = @mysql_select_db($this->db_config['prod']['database'],$myconn);
 
 		}
 		
-	
 		
 		$this->levels = $levels; 
 		
@@ -156,6 +156,7 @@ class User {
 		$out = array();
 		
 		$result = mysql_query($q);
+
 		if (!empty($result)) { 
 			while ($a = mysql_fetch_assoc($result)) {
 				

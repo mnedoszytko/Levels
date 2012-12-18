@@ -1,7 +1,12 @@
 <?
-error_reporting(E_ALL);
+
+
 ini_set('error_reporting','On');
+
+error_reporting(E_ALL);
+
 include('User.class.php');
+
 $User = new User();
 ?>
 <html>
