@@ -64,9 +64,8 @@ class User {
 		return mysql_query($query);
 		
 	}
-	public function add_xp($id, $xp){
-		
-		$quest = "manual";	
+	public function add_xp($id, $xp, $quest){
+			
 		$query = "SELECT xp FROM $this->table_name WHERE $this->table_name.id=$id";		
 		$result = mysql_query($query);
 		$data = mysql_fetch_row($result);
@@ -75,7 +74,7 @@ class User {
 		$new_xp = $current_xp + $xp;
 	
 		$query = "UPDATE $this->table_name SET xp='$new_xp' WHERE $this->table_name.id=$id";
-		$query2 = "INSERT INTO $this->table_name2 (user_id,quest) VALUES('$id','$quest')";
+		$query2 = "INSERT INTO $this->table_name2 (user_id,quest,xp_change) VALUES('$id','$quest','$xp')";
 		$result2 = mysql_query($query2);
 		
 		if (mysql_query($query)) {
@@ -84,7 +83,7 @@ class User {
 			if ($old_lvl != $new_lvl){ 
 				$new_lvl_name = $this->levels[$new_lvl]['name'];
 				$query = "UPDATE $this->table_name SET lvl='$new_lvl', lvl_name='$new_lvl_name' WHERE $this->table_name.id=$id";
-				$query2 = "INSERT INTO $this->table_name2 (user_id,level_up,level_up_name) VALUES('$id','yes','$new_lvl_name')";
+				$query2 = "INSERT INTO $this->table_name2 (user_id,is_level_up,level_up_name) VALUES('$id',1,'$new_lvl_name')";
 				$result2 = mysql_query($query2);
 				echo "LevelUP! nowy level name to $new_lvl_name ";
 			}
@@ -124,7 +123,7 @@ class User {
 			if ($old_lvl != $new_lvl){ 
 				$new_lvl_name = $this->levels[$new_lvl]['name'];
 				$query = "UPDATE $this->table_name SET lvl='$new_lvl', lvl_name='$new_lvl_name' WHERE $this->table_name.id=$id";
-				$query2 = "INSERT INTO $this->table_name2 (user_id,level_up,level_up_name) VALUES('$id','yes','$new_lvl_name')";
+				$query2 = "INSERT INTO $this->table_name2 (user_id,is_level_up,level_up_name) VALUES('$id',1,'$new_lvl_name')";
 				$result2 = mysql_query($query2);
 				echo "LevelUP! nowy level name to $new_lvl_name ";
 			}

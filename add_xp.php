@@ -14,7 +14,7 @@ $User = new User();
 
 
 	 if (!empty($_POST['submit'])) { 	
- 			if ($new_user_xp = $User->add_xp($_POST['id'], $_POST['xp'])) {
+ 			if ($new_user_xp = $User->add_xp($_POST['id'], $_POST['xp'], $_POST['quest'])) {
  			echo "Dodano xp";}
  			}
 
@@ -32,15 +32,16 @@ $User = new User();
 	<option value="1">Napisał</option>
 	<option value="2">Stworzył</option>
 	<option value="3">Zaprogramował</option>
-	<input type="submit" name="submit2" value="Zmień">
+	<input type="submit" name="submit2" value="Dodaj xp">
 	<input type="hidden" name="id" value="<?=$_GET['id']?>">
 	</select>
 	</form>
 	Lub wpisz manualnie:
 	<form action="" method="POST">
 		Xp: <input type="text" name="xp"><br>
+		Za co: <input type="text" name="quest">
 		<input type="hidden" name="id" value="<?=$_GET['id']?>">
-		<input type="submit" name="submit" value="Zmień">
+		<br><input type="submit" name="submit" value="Dodaj xp">
 	</form>
 	<?  } ?>
 	<br>
