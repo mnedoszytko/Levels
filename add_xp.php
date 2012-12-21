@@ -14,12 +14,12 @@ $User = new User();
 
 
 	 if (!empty($_POST['submit'])) { 	
- 			if ($new_user_xp = $User->add_xp($_POST['id'], $_POST['xp'], $_POST['quest'])) {
+ 			if ($new_user_xp = $User->add_xp($_POST['id'], $_POST['xp'], $_POST['quest'], $_POST['date'])) {
  			echo "Dodano xp";}
  			}
 
 		 if (!empty($_POST['submit2']))  {	
- 			if ($new_user_xp2 = $User->quest($_POST['id'], $_POST['quest'])){ 
+ 			if ($new_user_xp2 = $User->quest($_POST['id'], $_POST['quest'], $_POST['date'])){ 
  			echo "Quest zaliczony";}
 		
  	  }
@@ -34,6 +34,7 @@ $User = new User();
 	<option value="3">Zaprogramował</option>
 	<input type="submit" name="submit2" value="Dodaj xp">
 	<input type="hidden" name="id" value="<?=$_GET['id']?>">
+	<input type="hidden" name="date" value="<?=date("Y-m-d")." - ".date("H:i:s")?>">
 	</select>
 	</form>
 	Lub wpisz manualnie:
@@ -41,6 +42,7 @@ $User = new User();
 		Xp: <input type="text" name="xp"><br>
 		Za co: <input type="text" name="quest">
 		<input type="hidden" name="id" value="<?=$_GET['id']?>">
+		<input type="hidden" name="date" value="<?=date("Y-m-d")." - ".date("H:i:s")?>">
 		<br><input type="submit" name="submit" value="Dodaj xp">
 	</form>
 	<?  } ?>
