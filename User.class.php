@@ -5,6 +5,7 @@ served at githhub.com  (nedo)
 */
 class User {
 	private $table_name='xp_users';
+	private $table_name2='xp_users_records';
 	public $levels; 
 	public $db_config;
 	public function __construct(){
@@ -64,7 +65,8 @@ class User {
 		
 	}
 	public function add_xp($id, $xp){
-			
+		
+		$quest = "manual";	
 		$query = "SELECT xp FROM $this->table_name WHERE $this->table_name.id=$id";		
 		$result = mysql_query($query);
 		$data = mysql_fetch_row($result);
@@ -73,6 +75,8 @@ class User {
 		$new_xp = $current_xp + $xp;
 	
 		$query = "UPDATE $this->table_name SET xp='$new_xp' WHERE $this->table_name.id=$id";
+		$query2 = "INSERT INTO $this->table_name2 (user_id,quest) VALUES('$id','$quest')";
+		$result2 = mysql_query($query2);
 		
 		if (mysql_query($query)) {
 			$old_lvl = $this->whichLvl($current_xp);
@@ -80,6 +84,8 @@ class User {
 			if ($old_lvl != $new_lvl){ 
 				$new_lvl_name = $this->levels[$new_lvl]['name'];
 				$query = "UPDATE $this->table_name SET lvl='$new_lvl', lvl_name='$new_lvl_name' WHERE $this->table_name.id=$id";
+				$query2 = "INSERT INTO $this->table_name2 (user_id,level_up,level_up_name) VALUES('$id','yes','$new_lvl_name')";
+				$result2 = mysql_query($query2);
 				echo "LevelUP! nowy level name to $new_lvl_name ";
 			}
 			return mysql_query($query);
@@ -109,35 +115,26 @@ class User {
 			$new_xp = $current_xp + 30;
 			break;
 		}
-	
 		$query = "UPDATE $this->table_name SET xp='$new_xp' WHERE $this->table_name.id=$id";
-
+		$query2 = "INSERT INTO $this->table_name2 (user_id,quest) VALUES('$id','$quest')";
+		$result2 = mysql_query($query2);
 		if (mysql_query($query)) {
 			$old_lvl = $this->whichLvl($current_xp);
 			$new_lvl = $this->whichLvl($new_xp);
 			if ($old_lvl != $new_lvl){ 
 				$new_lvl_name = $this->levels[$new_lvl]['name'];
 				$query = "UPDATE $this->table_name SET lvl='$new_lvl', lvl_name='$new_lvl_name' WHERE $this->table_name.id=$id";
+				$query2 = "INSERT INTO $this->table_name2 (user_id,level_up,level_up_name) VALUES('$id','yes','$new_lvl_name')";
+				$result2 = mysql_query($query2);
 				echo "LevelUP! nowy level name to $new_lvl_name ";
 			}
 			return mysql_query($query);
+			
 
 		}
-
-	
-	
-	
-	
-	
-	
-	
 						
 	}
-		
-
-	
-		
-	
+			
 	public function whichLvl($xp){		
 	
 		foreach ($this->levels as $no=>$lvl){
@@ -189,5 +186,38 @@ class User {
 		
 		
 	}
+		public function getRecords($id, $order = null, $limit = null) {
+		
+		
+		$q = "SELECT * FROM $this->table_name2 WHERE $this->table_name2.user_id=$id";
+		if (!empty($order)) $q .= "ORDER BY $order";
+		if (!empty($limit)) $q .= "LIMIT $limit";
+		
+		$out = array();
+		
+		$result = mysql_query($q);
+
+		if (!empty($result)) { 
+			while ($a = mysql_fetch_assoc($result)) {
+				
+				$out[] = $a;
+			}
+			return $out;
+ 				
+			
+		} else {
+			
+			return false;
+		}
+		
+		
+		
+		
+	}
+	public function delete_record($id){
+		
+		$query = "DELETE FROM $this->table_name2 WHERE $this->table_name2.id=$id";
+		return mysql_query($query);
+		}
 }
 ?>

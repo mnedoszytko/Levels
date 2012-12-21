@@ -38,6 +38,7 @@ foreach($users as $user) { ?>
 	<a href="delete_dude.php?id=<?=$user['id']?>">usuń</a>
 	<a href="add_xp.php?id=<?=$user['id']?>">dodaj xp</a>
 	<a href="edit_dude.php?id=<?=$user['id']?>">zmień nick</a>
+	<a href="records.php?id=<?=$user['id']?>">historia</a>
 		</td>
 </tr>
 <?

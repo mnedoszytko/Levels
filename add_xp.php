@@ -26,17 +26,17 @@ $User = new User();
 
  ?>
  <? if (empty($_POST['submit']) && empty($_POST['submit2'])) { ?>
-	Działa i zostanie zmienione na listę:
+	Wybierz z listy:
 	<form action="" method="POST">
 	<select name="quest">
-	<option value="1">kupa</option>
-	<option value="2">siku</option>
-	<option value="3">rzyg</option>
+	<option value="1">Napisał</option>
+	<option value="2">Stworzył</option>
+	<option value="3">Zaprogramował</option>
 	<input type="submit" name="submit2" value="Zmień">
 	<input type="hidden" name="id" value="<?=$_GET['id']?>">
 	</select>
 	</form>
-	Działa:
+	Lub wpisz manualnie:
 	<form action="" method="POST">
 		Xp: <input type="text" name="xp"><br>
 		<input type="hidden" name="id" value="<?=$_GET['id']?>">
