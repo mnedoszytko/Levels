@@ -7,7 +7,7 @@
 #
 # Host: localhost (MySQL 5.5.25)
 # Database: levelowanie
-# Generation Time: 2012-12-21 19:36:20 +0000
+# Generation Time: 2012-12-21 21:21:36 +0000
 # ************************************************************
 
 
@@ -20,22 +20,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
-# Dump of table xp_users
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `xp_users`;
-
-CREATE TABLE `xp_users` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(128) NOT NULL DEFAULT '',
-  `xp` int(11) unsigned NOT NULL,
-  `lvl` int(11) unsigned NOT NULL,
-  `lvl_name` varchar(128) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
-
 # Dump of table xp_users_records
 # ------------------------------------------------------------
 
@@ -44,10 +28,11 @@ DROP TABLE IF EXISTS `xp_users_records`;
 CREATE TABLE `xp_users_records` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(11) unsigned NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created` datetime NOT NULL,
   `quest` varchar(128) DEFAULT '',
-  `level_up` varchar(128) DEFAULT 'no',
+  `is_level_up` tinyint(128) NOT NULL,
   `level_up_name` varchar(128) DEFAULT NULL,
+  `xp_change` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
