@@ -11,12 +11,26 @@ $User = new User();
 		<title></title>
 		
 		<script language="JavaScript">
-				function notEmpty(elem, helperMsg){
-					if(elem.value.length == 0){
-						alert(helperMsg);
-						return false;
-	}
-	return true;
+				function ckhForm(){
+					var quest = document.getElementById('quest');
+					var xp = document.getElementById('xp');
+					
+					if(notEmpty(quest, "wpisz quest")){
+						if(notEmpty(xp, "wpisz xp")){
+							return true;
+						}
+					}
+	
+	return false;
+	
+}
+					
+					function notEmpty(elem, helperMsg){
+							if(elem.value.length == 0){
+								alert(helperMsg);
+										return false;
+											}
+											return true;
 }
 			
 			function supplyXp() {
@@ -62,7 +76,7 @@ $User = new User();
  	
   ?>
 	Wybierz z listy:
-	<form action="<?=$PHP_SELF?>" method="POST" id="questform">
+	<form action="<?=$PHP_SELF?>" method="POST" id="questform" onsubmit="return chkForm()">
 	<select name="quest-helper" id="quest-helper" onChange="supplyXp()">
 	<option value="">--Wybierz--</option>
 	<?	
@@ -78,7 +92,7 @@ $User = new User();
 		Za co: <input type="text" name="quest" id="quest">
 		<input type="hidden" name="id" value="<?=$_GET['id']?>">
 		<input type="hidden" name="date" value="<?=date("Y-m-d")." - ".date("H:i:s")?>">
-		<br><input type="submit" name="save" value="Dodaj xp" onclick="notEmpty(document.getElementById('xp'), 'Please Enter a Value')">
+		<br><input type="submit" name="save" value="Dodaj xp">
 		
 	
 	</form>
