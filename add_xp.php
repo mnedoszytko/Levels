@@ -11,7 +11,7 @@ $User = new User();
 		<title></title>
 		
 		<script language="JavaScript">
-				function ckhForm(){
+				function chkForm(){
 					var quest = document.getElementById('quest');
 					var xp = document.getElementById('xp');
 					
@@ -76,7 +76,7 @@ $User = new User();
  	
   ?>
 	Wybierz z listy:
-	<form action="<?=$PHP_SELF?>" method="POST" id="questform" onsubmit="return chkForm()">
+	<form action="<?=$PHP_SELF?>" method="POST" id="questform" onSubmit="return chkForm()">
 	<select name="quest-helper" id="quest-helper" onChange="supplyXp()">
 	<option value="">--Wybierz--</option>
 	<?	
