@@ -83,7 +83,7 @@ class User {
 			if ($old_lvl != $new_lvl){ 
 				$new_lvl_name = $this->levels[$new_lvl]['name'];
 				$query = "UPDATE $this->table_name SET lvl='$new_lvl', lvl_name='$new_lvl_name' WHERE $this->table_name.id=$id";
-				$query2 = "INSERT INTO $this->table_name2 (user_id,is_level_up,level_up_name,created) VALUES('$id',1,'$new_lvl_name','$date')";
+				$query2 = "INSERT INTO $this->table_name2 (user_id,is_level_up,level_no,created) VALUES('$id',1,'$new_lvl','$date')";
 				$result2 = mysql_query($query2);
 				echo "LevelUP! nowy level name to $new_lvl_name ";
 			}
@@ -123,7 +123,7 @@ class User {
 			if ($old_lvl != $new_lvl){ 
 				$new_lvl_name = $this->levels[$new_lvl]['name'];
 				$query = "UPDATE $this->table_name SET lvl='$new_lvl', lvl_name='$new_lvl_name' WHERE $this->table_name.id=$id";
-				$query2 = "INSERT INTO $this->table_name2 (user_id,is_level_up,level_up_name,created) VALUES('$id',1,'$new_lvl_name','$date')";
+				$query2 = "INSERT INTO $this->table_name2 (user_id,is_level_up,level_no,created) VALUES('$id',1,'$new_lvl','$date')";
 				$result2 = mysql_query($query2);
 				echo "LevelUP! nowy level name to $new_lvl_name ";
 			}
@@ -188,7 +188,7 @@ class User {
 		public function getRecords($id, $order = null, $limit = null) {
 		
 		
-		$q = "SELECT * FROM $this->table_name2 WHERE $this->table_name2.user_id=$id";
+		$q = "SELECT * FROM $this->table_name2 WHERE $this->table_name2.user_id=$id ORDER BY created DESC";
 		if (!empty($order)) $q .= "ORDER BY $order";
 		if (!empty($limit)) $q .= "LIMIT $limit";
 		

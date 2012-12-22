@@ -24,7 +24,7 @@ if (count($users) > 0) {	?>
 	<th>Created</th>
 	<th>Quest</th>
 	<th>Level_up</th>
-	<th>Level_up_name</th>
+	<th>Level_no</th>
 	<th>XP_change</th>
 	<th></th>
 	</tr>
@@ -36,7 +36,7 @@ foreach($users as $user) { ?>
 	<td><?=$user['created']?>
 	<td><?=$user['quest']?>
 	<td><?=$user['is_level_up']?>
-	<td><?=$user['level_up_name']?>
+	<td><?=$user['level_no']?>
 	<td><?=$user['xp_change']?>
 	<td>
 	<a href="delete_record.php?id=<?=$user['id']?>">usuń</a>
