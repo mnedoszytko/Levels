@@ -21,7 +21,12 @@ class User {
 				
 		$myconn = @mysql_connect($this->db_config['devel']['host'],$this->db_config['devel']['username'],$this->db_config['devel']['password']) or die("nie udało się podłączyć do serwera developerskiego");
 		$seldb = @mysql_select_db($this->db_config['devel']['database'],$myconn);
-		} else {
+		} elseif ($sn == 'xp') {
+		$myconn = @mysql_connect($this->db_config['nedo']['host'],$this->db_config['nedo']['username'],$this->db_config['nedo']['password']) or die("nie udało się podłączyć do serwera nedowego");
+		$seldb = @mysql_select_db($this->db_config['nedo']['database'],$myconn);
+
+			
+		}   else {
 		$myconn = @mysql_connect($this->db_config['prod']['host'],$this->db_config['prod']['username'],$this->db_config['prod']['password']) or die("nie udało się podłączyć do serwera produkcyjnego");
 		$seldb = @mysql_select_db($this->db_config['prod']['database'],$myconn);
 

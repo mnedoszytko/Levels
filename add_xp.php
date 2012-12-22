@@ -8,42 +8,68 @@ $User = new User();
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title></title>
+		
+		<script language="JavaScript">
+			function supplyXp() {
+				
+				
+					helper = document.getElementById("quest-helper");
+					xp = helper.value;
+					if (xp != "") {
+						text = helper.options[helper.selectedIndex].text;
+						if (confirm("Czy chcesz dodać "+xp+" XP za "+text+'?')) {
+							
+							xpinput = document.getElementById("xp");
+							questinput = document.getElementById("quest");
+							xpinput.value = xp;
+							questinput.value = text;
+							
+//							alert("ok, dodaję");
+							form = document.getElementById('questform');
+							console.log(form);
+							form.submit();
+											
+						}
+						
+						
+					}
+				
+				
+			}
+		</script>
 	</head>
 	<body>
 	<?
 
 
-	 if (!empty($_POST['submit'])) { 	
+	 if (!empty($_POST['id'])) { 	
  			if ($new_user_xp = $User->add_xp($_POST['id'], $_POST['xp'], $_POST['quest'], $_POST['date'])) {
- 			echo "Dodano xp";}
+ 			echo "Dodano xp";
+ 			
  			}
-
-		 if (!empty($_POST['submit2']))  {	
- 			if ($new_user_xp2 = $User->quest($_POST['id'], $_POST['quest'], $_POST['date'])){ 
- 			echo "Quest zaliczony";}
-		
- 	  }
-
- ?>
- <? if (empty($_POST['submit']) && empty($_POST['submit2'])) { ?>
+ 			}
+ 			
+ 			else {
+ 	
+  ?>
 	Wybierz z listy:
-	<form action="" method="POST">
-	<select name="quest">
-	<option value="1">Napisał</option>
-	<option value="2">Stworzył</option>
-	<option value="3">Zaprogramował</option>
-	<input type="submit" name="submit2" value="Dodaj xp">
-	<input type="hidden" name="id" value="<?=$_GET['id']?>">
-	<input type="hidden" name="date" value="<?=date("Y-m-d")." - ".date("H:i:s")?>">
+	<form action="<?=$PHP_SELF?>" method="POST" id="questform">
+	<select name="quest-helper" id="quest-helper" onChange="supplyXp()">
+	<option value="">--Wybierz--</option>
+	<option value="100">Bonus</option>
+	<option value="200">Basic task</option>
+	<option value="500">Complex task</option>
 	</select>
-	</form>
+
 	Lub wpisz manualnie:
-	<form action="" method="POST">
-		Xp: <input type="text" name="xp"><br>
-		Za co: <input type="text" name="quest">
+
+		Xp: <input type="text" name="xp" id="xp"><br>
+		Za co: <input type="text" name="quest" id="quest">
 		<input type="hidden" name="id" value="<?=$_GET['id']?>">
 		<input type="hidden" name="date" value="<?=date("Y-m-d")." - ".date("H:i:s")?>">
-		<br><input type="submit" name="submit" value="Dodaj xp">
+		<br><input type="submit" name="save" value="Dodaj xp">
+		
+	
 	</form>
 	<?  } ?>
 	<br>
