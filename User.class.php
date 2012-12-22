@@ -8,6 +8,7 @@ class User {
 	private $table_name2='xp_users_records';
 	public $levels; 
 	public $db_config;
+	public $questdb;
 	public function __construct(){
 	
 		include('config.php');
@@ -33,7 +34,8 @@ class User {
 		}
 		
 		
-		$this->levels = $levels; 
+		$this->levels = $levels;
+		$this->questdb = $questdb;
 		
 		
 	}

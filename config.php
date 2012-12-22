@@ -62,4 +62,11 @@ $levels = array(
 		'threshold' => 3000
 	)
 );
+$questdb = array(
+	'basic' => 100,
+	'simple' => 200,
+	'medium' => 300,
+	'hard' => 400,
+	'extreme' => 500,
+	'OMGWTFBBQ' => 1000);
 ?>

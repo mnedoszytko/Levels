@@ -2,6 +2,7 @@
 error_reporting(E_ALL);
 ini_set('error_reporting','On');
 include('User.class.php');
+include('config.php');
 $User = new User();
 ?>
 <html>
@@ -10,6 +11,14 @@ $User = new User();
 		<title></title>
 		
 		<script language="JavaScript">
+				function notEmpty(elem, helperMsg){
+					if(elem.value.length == 0){
+						alert(helperMsg);
+						return false;
+	}
+	return true;
+}
+			
 			function supplyXp() {
 				
 				
@@ -24,7 +33,7 @@ $User = new User();
 							xpinput.value = xp;
 							questinput.value = text;
 							
-//							alert("ok, dodaję");
+							alert("ok, dodaję");
 							form = document.getElementById('questform');
 //							console.log(form);
 							form.submit();
@@ -56,10 +65,12 @@ $User = new User();
 	<form action="<?=$PHP_SELF?>" method="POST" id="questform">
 	<select name="quest-helper" id="quest-helper" onChange="supplyXp()">
 	<option value="">--Wybierz--</option>
-	<option value="100">Bonus</option>
-	<option value="200">Basic task</option>
-	<option value="500">Complex task</option>
-	</select>
+	<?	
+		foreach($questdb as $qu=>$exp){
+			echo'<option value="'.$exp.'">'.$qu.'</option>';
+    }
+?>
+</select>
 
 	Lub wpisz manualnie:
 
@@ -67,7 +78,7 @@ $User = new User();
 		Za co: <input type="text" name="quest" id="quest">
 		<input type="hidden" name="id" value="<?=$_GET['id']?>">
 		<input type="hidden" name="date" value="<?=date("Y-m-d")." - ".date("H:i:s")?>">
-		<br><input type="submit" name="save" value="Dodaj xp">
+		<br><input type="submit" name="save" value="Dodaj xp" onclick="notEmpty(document.getElementById('xp'), 'Please Enter a Value')">
 		
 	
 	</form>
