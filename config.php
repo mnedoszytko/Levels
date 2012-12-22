@@ -9,7 +9,15 @@ $db_config = array(
 		'host' => 'localhost',
 		'username' => 'level',
 		'password' => 'level',
-		'database' => 'levelowanie'));
+		'database' => 'levelowanie'),
+	'nedo' => array(
+		'host' => 'localhost',
+		'username' => 'root',
+		'password' => 'k3j2l4prmm',
+		'database' => 'levelowanie'
+	)		
+		
+		);
 $levels = array(
 	0 => array(
 		'name' => 'noone',
