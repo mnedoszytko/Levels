@@ -26,7 +26,7 @@ $User = new User();
 							
 //							alert("ok, dodaję");
 							form = document.getElementById('questform');
-							console.log(form);
+//							console.log(form);
 							form.submit();
 											
 						}
