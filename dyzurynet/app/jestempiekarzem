@@ -1,0 +1,14 @@
+#!/bin/bash
+../Lib/Cake/Console/cake bake all Absence
+../Lib/Cake/Console/cake bake all Group
+../Lib/Cake/Console/cake bake all GroupsUnit
+../Lib/Cake/Console/cake bake all GroupsUser
+../Lib/Cake/Console/cake bake all Institution
+../Lib/Cake/Console/cake bake all Position
+../Lib/Cake/Console/cake bake all Schedule
+../Lib/Cake/Console/cake bake all Unit
+../Lib/Cake/Console/cake bake all UnitsUser
+../Lib/Cake/Console/cake bake all User
+../Lib/Cake/Console/cake bake all Wish
+../Lib/Cake/Console/cake bake all Wishmode
+../Lib/Cake/Console/cake bake all Workhour
